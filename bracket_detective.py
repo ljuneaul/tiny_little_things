@@ -2,8 +2,8 @@
 # in progress
 
 # IPO chart
-# input: a file
-# processing: chop line by line
+# input: a filename
+# processing: load file, chop line by line
 #             Style Rule 1: Put a space after an open parenthesis "(" and
 #                           one before a close parenthesis ")".
 #                           -> check if there is space between ( and )
@@ -13,7 +13,6 @@
 #         if there is no error, end the program and inform about other rules
 
 # Pseudocode
-
 # Function 2 - Style Rule 2
 # GET a row (string) and the row index
 # IF 2-bit operators ( ** // += -= *= /= >= <= == != ) in the string, THEN
@@ -114,9 +113,9 @@ def parenthesis_closer(line, index):
 
 # DISPLAY header
 print("""
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-*   Style Detector ( for Style Rule 1 and unpairing parenthesis )   *
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*   bracket  detective ( for Style Rule 1 and unpairing parenthesis )   *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 """)
 # LOAD file contents line by line into a list of strings
 file_name = ask_filename()
@@ -128,4 +127,8 @@ for i in range(len(file_content)):
     style_1(file_content[i], i)
     parenthesis_closer(file_content[i], i)
 # DISPLAY ending message
-print("\nInvestigation ended.\nPlease note that this detector only indicates simple errors with parenthesis!\n")
+# END the program
+end_message = """\nInvestigation ended. Fix errors by yourself if there was any.
+Please note that this detector only indicates simple errors with parenthesis!
+"""
+print(end_message)
