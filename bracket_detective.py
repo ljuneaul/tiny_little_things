@@ -128,16 +128,21 @@ for i in range(len(file_content)):
     parenthesis_closer(file_content[i], i)
 # DISPLAY ending message
 # END the program
-end_message = """\nInvestigation ended. Fix errors by yourself if there was any.
+end_message = """\nInvestigation ended. Fix errors by yourself if there were any.
+If there was "\\" at the end, it could cause false-alarm.
 Please note that this detector only indicates simple errors with parenthesis!
 """
 print(end_message)
 
 # Dear Stephen,
+
 # If you are reading this by any chance, please be merciful and kindly forgive
 # me that this program itself is totally against the style rule 1.
-# I am using an editor named Atom at my home for non-assignment-related task
-# and it throws tons of red and yellow warning filling the whole screen
-# scarily when I follows that rule. I really appreciate your concept and
-# totally understand why I should follow the rule. And I swear I will never
-# question related that matter since I totally obey your rule in the classroom.
+# I am using an editor named Atom at my home only for non-assignment-related
+# tasks and it throws tons of red and yellow warnings filling the whole screen
+# scarily when I follows that rule. I really appreciate the concept and
+# totally understand why I should follow the rules. And I swear I will never
+# question related this matter since I totally obey your rule in the classroom.
+
+# Yours Sincerely,
+# J

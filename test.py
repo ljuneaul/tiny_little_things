@@ -6,7 +6,7 @@
 (parenthesis)
 ( parenthesis )
 (parenthesis)
-( ( (parenthesis )
+( ((parenthesis)
 (parenthesis)
 ( parenthesis ) )
 (parenthesis)
