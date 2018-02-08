@@ -1,5 +1,5 @@
 # author : https://github.com/njavig
-# on progress
+# in progress
 
 # IPO chart
 # input: a file
@@ -95,17 +95,28 @@ def style_1(line, index):
         line = line[:insert] + chr(9608) + line[insert:]
     # PRINT ( the row index + 1 ) + the string + informing message
     if error_count != 0:
-        print("line", index + 1, ":", line, "#", error_count, "missing space(s) between parenthesis")
+        print("line", index + 1, ":", line, "\t#", error_count, "missing space(s) between parenthesis")
+
+
+def parenthesis_closer(line, index):
+    opening = line.count("(")
+    closing = line.count(")")
+    if opening > closing:
+        print("line", index + 1, ":", line, "\t#", opening - closing, "missing ')'")
+    elif closing < opening:
+        print("line", index + 1, ":", line, "\t#", closing - opening, "missing '('")
 
 
 # DISPLAY header
 print("""
-* * * * * * * * * * * * * * * * * * * * * *
-*   Style Detector ( for Style Rule 1 )   *
-* * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*   Style Detector ( for Style Rule 1 and unpairing parenthesis )   *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 """)
 file_name = ask_filename()
 file_content = open_file(file_name)
-
+print("")
 for i in range(len(file_content)):
     style_1(file_content[i], i)
+    parenthesis_closer(file_content[i], i)
+print("\nPlease note that this detector only indicates simple errors with parenthesis!\n")
