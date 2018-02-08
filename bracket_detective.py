@@ -99,9 +99,13 @@ def style_1(line, index):
         print("line", index + 1, ":", line, "\t#", error_count, "missing space(s) between parenthesis")
 
 
+# Extra function: check if there is any unpairing parenthesis_closer
+# GET a row (string) and the row index
 def parenthesis_closer(line, index):
+    # GET how many "(" and ")" each
     opening = line.count("(")
     closing = line.count(")")
+    # IF the number is different, THEN DISPLAY the amount
     if opening > closing:
         print("line", index + 1, ":", line, "\t#", opening - closing, "missing ')'")
     elif closing < opening:
@@ -114,10 +118,14 @@ print("""
 *   Style Detector ( for Style Rule 1 and unpairing parenthesis )   *
 * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 """)
+# LOAD file contents line by line into a list of strings
 file_name = ask_filename()
+# LOAD file contents line by line into a list of strings
 file_content = open_file(file_name)
 print("")
+# IF there is (an) error(s) for each line, THEN DISPLAY
 for i in range(len(file_content)):
     style_1(file_content[i], i)
     parenthesis_closer(file_content[i], i)
-print("\nPlease note that this detector only indicates simple errors with parenthesis!\n")
+# DISPLAY ending message
+print("\nInvestigation ended.\nPlease note that this detector only indicates simple errors with parenthesis!\n")
