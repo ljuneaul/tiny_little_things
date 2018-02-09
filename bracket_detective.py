@@ -13,7 +13,6 @@
 #         if there is no error, end the program and inform about other rules
 
 
-#
 import sys
 
 
@@ -83,7 +82,7 @@ def style_1(line, index):
             error_index_list.append(inserting_index)
             # INCREMENT error count
             error_count += 1
-    # SET the string as █(ascii 219) inserted where the space(s) should be
+    # SET the string as █(ascii 9608) inserted where the space(s) should be
     #     do this in a descending order so the rests won't be effected
     error_index_list.reverse()
     for insert in error_index_list:
@@ -181,6 +180,7 @@ common_end_message = "Please note that this detector only indicates simple \
 errors with parenthesis and spaces!"
 print(each_end_message)
 print(common_end_message, "\n")
+
 
 # Dear Stephen,
 
