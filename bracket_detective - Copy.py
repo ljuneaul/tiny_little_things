@@ -101,6 +101,10 @@ def style_1(line, index):
 # Extra function: check if there is any unpairing parenthesis_closer
 # GET a row (string) and the row index
 def parenthesis_closer(line, index):
+	# IF there is a "\" end of the line, merge it into the next one
+	if line[-1] == "\":
+	#############################
+			
     # GET how many "(" and ")" each
     opening = line.count("(")
     closing = line.count(")")
