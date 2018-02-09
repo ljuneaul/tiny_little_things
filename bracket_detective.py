@@ -101,14 +101,23 @@ def style_1(line, index):
 # Extra function: check if there is any unpairing parenthesis_closer
 # GET a row (string) and the row index
 def parenthesis_closer(line, index):
-    # GET how many "(" and ")" each
-    opening = line.count("(")
-    closing = line.count(")")
-    # IF the number is different, THEN DISPLAY the amount
-    if opening > closing:
-        print("line", index + 1, ":", line, "\t#", opening - closing, "missing ')'")
-    elif closing < opening:
-        print("line", index + 1, ":", line, "\t#", closing - opening, "missing '('")
+    # SET the line to be connected with previous one if there was "\" before
+    global temp
+    line = temp + "line " + str(index + 1) + " : " + line
+    if line[-1:] == chr(92):
+        temp = line + "\n"
+    else:
+        # GET how many "(" and ")" each
+        opening = line.count("(")
+        closing = line.count(")")
+        # IF the number is different, THEN DISPLAY the amount
+        if opening > closing:
+            comment = str(opening - closing) + " missing ')'"
+            print(line, "\t#", comment)
+        elif closing < opening:
+            comment = str(closing - opening) + " missing '('"
+            print(line, "\t#", comment)
+        temp = ""
 
 
 # DISPLAY header
@@ -121,6 +130,8 @@ print("""
 file_name = ask_filename()
 # LOAD file contents line by line into a list of strings
 file_content = open_file(file_name)
+temp = ""
+global_error_count = 0
 print("")
 # IF there is (an) error(s) for each line, THEN DISPLAY
 for i in range(len(file_content)):
@@ -129,7 +140,6 @@ for i in range(len(file_content)):
 # DISPLAY ending message
 # END the program
 end_message = """\nInvestigation ended. Fix errors by yourself if there were any.
-If there was "\\" at the end, it could cause false-alarm.
 Please note that this detector only indicates simple errors with parenthesis!
 """
 print(end_message)
