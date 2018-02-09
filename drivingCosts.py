@@ -2,9 +2,9 @@
 # that I have not copied it from any other source.  I also certify that I have not allowed
 # my work to be copied by others.
 
-# This program compares the effect of driving at different speeds 
-# on your fuel consumption.  The user will enter the distanceance of 
-# their drive in kms and the cost of gas per liter.  The 
+# This program compares the effect of driving at different speeds
+# on your fuel consumption.  The user will enter the distanceance of
+# their drive in kms and the cost of gas per liter.  The
 # program will report back the cost of doing that drive at
 # different speeds.
 
@@ -30,7 +30,7 @@ print( "That's price_" + str( round( price_at_100km_per_hour * 365.4,2 ) ) + " p
 
 # calculations for diving at 120 km/h
 price_at_120km_per_hour = round( price_per_day * 1.23, 2 )
-print( "If you drive at " + str( 75 * 1.6 ) + " km/h it will cost price_" + \
+print( "If you drive at " + str( 75 * 1.6  + " km/h it will cost price_" + \
 str( price_at_120km_per_hour ) + " per day" )
 print( "That's price_" + str( round( price_at_120km_per_hour * 365.4,2 ) ) + " per year.\n" )
 
