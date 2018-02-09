@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ( parenthesis )
 (parenthesis)
 ( ( parenthesis )
@@ -43,4 +42,3 @@ a = 3 * 5
 b =4 * 6
 c=5 * 7
 d = 6**8
->>>>>>> 16c69769b445237081460300fde634c97cadda92
