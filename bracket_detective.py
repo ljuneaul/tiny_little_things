@@ -154,9 +154,9 @@ def style_2(line, index):
 
 # DISPLAY header
 print("""
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-*   bracket  detective ( for Style Rule 1 and unpairing parenthesis )   *
-* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+*   bracket detective  ( for Style Rule 1, 2, and unpairing parenthesis )   *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
 """)
 # LOAD file contents line by line into a list of strings
 file_name = ask_filename()
@@ -178,7 +178,7 @@ else:
     each_end_message = "\nInvestigation ended. Please fix "\
                        + str(global_error_count) + " error(s) by yourself."
 common_end_message = "Please note that this detector only indicates simple \
-errors with parenthesis!"
+errors with parenthesis and spaces!"
 print(each_end_message)
 print(common_end_message, "\n")
 
