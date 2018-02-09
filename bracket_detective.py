@@ -12,24 +12,18 @@
 # output: if there is (an) error(s), tell user where it was, what it was.
 #         if there is no error, end the program and inform about other rules
 
-# Pseudocode
-# Function 2 - Style Rule 2
-# GET a row (string) and the row index
-# IF 2-bit operators ( ** // += -= *= /= >= <= == != ) in the string, THEN
-#     GET its index
-#     IF NOT index - 1 and index + 2 is both " ", THEN
+
 #
-# ELSEIF 1-bit operators ( + - * / = < > % ) in the string, THEN
-#     GET its index
-#     IF NOT index - 1 and index + 1 is both " ", THEN
-#
+import sys
 
 
 # GET filename
 def ask_filename():
     filename = input("Enter your file name: ")
     # IF the user didn't input file extension, THEN
-    if "." not in filename:
+    if len(filename) == 0 or filename == "exit":
+        sys.exit()
+    elif "." not in filename:
         # SET filename = filename + .py
         filename += ".py"
     return filename
@@ -61,6 +55,7 @@ def style_1(line, index):
     error_count = 0
     checking_index = 0
     inserting_index = 0
+    global global_error_count
     # FOR each character in the string,
     for i in range(len(line)):
         # IF the character is "(", THEN
@@ -95,7 +90,9 @@ def style_1(line, index):
         line = line[:insert] + chr(9608) + line[insert:]
     # PRINT ( the row index + 1 ) + the string + informing message
     if error_count != 0:
-        print("line", index + 1, ":", line, "\t#", error_count, "missing space(s) between parenthesis")
+        message = "missing space(s) between parenthesis"
+        print("line", index + 1, ":", line, "\t#", error_count, message)
+        global_error_count += error_count
 
 
 # Extra function: check if there is any unpairing parenthesis_closer
@@ -103,6 +100,7 @@ def style_1(line, index):
 def parenthesis_closer(line, index):
     # SET the line to be connected with previous one if there was "\" before
     global temp
+    global global_error_count
     line = temp + "line " + str(index + 1) + " : " + line
     if line[-1:] == chr(92):
         temp = line + "\n"
@@ -110,14 +108,48 @@ def parenthesis_closer(line, index):
         # GET how many "(" and ")" each
         opening = line.count("(")
         closing = line.count(")")
+        difference = 0
         # IF the number is different, THEN DISPLAY the amount
         if opening > closing:
-            comment = str(opening - closing) + " missing ')'"
-            print(line, "\t#", comment)
+            difference = opening - closing
+            print(line, "\t#", str(difference) + " missing ')'")
         elif closing < opening:
-            comment = str(closing - opening) + " missing '('"
-            print(line, "\t#", comment)
+            difference = closing - opening
+            print(line, "\t#", str(difference) + " missing '('")
+        global_error_count += difference
         temp = ""
+
+
+# operator = list of (sign, 1-digit w/ spaces, 2-digit w/ spaces)
+operator = []
+operator.append(("+", " + ", " += "))
+operator.append(("-", " - ", " -= "))
+operator.append(("*", " * ", (" *= ", " ** ")))
+operator.append(("/", " / ", (" /= ", " // ")))
+operator.append(("%", " % ", " %= "))
+operator.append(("=", (" = ", "+= ", "-= ", "*= ", "/= ", "%= ", ">= ", "<= "), (" == ")))
+operator.append((">", " > ", " >= "))
+operator.append(("<", " < ", " <= "))
+
+
+# Function 2 - Style Rule 2
+# GET a row (string) and the row index
+def style_2(line, index):
+    global global_error_count
+    for i in range(len(operator)):
+        # IF 1-bit operators in the string and space missing, THEN
+        if operator[i][0] in line:
+            # GET its position
+            position = line.find(operator[i][0])
+            # IF any space is missing around the operator(consider 2-bit), THEN
+            if line[position - 1:position + 2] not in operator[i][1]\
+               and line[position - 1:position + 3] not in operator[i][2]:
+                # DISPLAY its index
+                message = "missing space(s) around (an) operator(s)"
+                print("line", index + 1, ":", line, "\t#", message)
+                global_error_count += 1
+                # to prevent multiple print in 2-digit, terminate the iteration
+                return
 
 
 # DISPLAY header
@@ -137,12 +169,18 @@ print("")
 for i in range(len(file_content)):
     style_1(file_content[i], i)
     parenthesis_closer(file_content[i], i)
+    style_2(file_content[i], i)
 # DISPLAY ending message
 # END the program
-end_message = """\nInvestigation ended. Fix errors by yourself if there were any.
-Please note that this detector only indicates simple errors with parenthesis!
-"""
-print(end_message)
+if global_error_count == 0:
+    each_end_message = "No error found!"
+else:
+    each_end_message = "\nInvestigation ended. Please fix "\
+                       + str(global_error_count) + " error(s) by yourself."
+common_end_message = "Please note that this detector only indicates simple \
+errors with parenthesis!"
+print(each_end_message)
+print(common_end_message, "\n")
 
 # Dear Stephen,
 
