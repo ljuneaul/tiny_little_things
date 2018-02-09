@@ -20,7 +20,7 @@
 ( recursive /=division )
 ( equal == equal )
 ( equal==equal )
-( equal ==equal )
+( equal ==equal)
 ( equal== equal )
 greater >= greater
 greater>= greater

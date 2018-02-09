@@ -1,5 +1,5 @@
 # author : https://github.com/njavig
-# in progress
+# in progress (almost)
 
 # IPO chart
 # input: a filename
