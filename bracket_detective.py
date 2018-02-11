@@ -122,12 +122,12 @@ def parenthesis_closer(line, index):
 # operator = list of (sign, 1-digit w/ spaces, 2-digit w/ spaces)
 operator = []
 operator.append(("+", " + ", " += "))
-operator.append(("-", " - ", " -= "))
+operator.append(("-", " - ", (" -= ", " -> ")))
 operator.append(("*", " * ", (" *= ", " ** ")))
-operator.append(("/", " / ", (" /= ", " // ")))
+operator.append(("/", (" / ", "m/h"), (" /= ", " // ")))
 operator.append(("%", " % ", " %= "))
 operator.append(("=", (" = ", "+= ", "-= ", "*= ", "/= ", "%= ", ">= ", "<= "), (" == ")))
-operator.append((">", " > ", " >= "))
+operator.append((">", (" > ", "-> "), " >= "))
 operator.append(("<", " < ", " <= "))
 
 
