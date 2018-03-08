@@ -1,4 +1,4 @@
-# Jungwon Lim, 000772198
+print( "\nThis program calculates Riemann sum of y = x ^ 2 graph with two x positions .\n" )
 
 # input: 1) x ( from user )
 x1 = float( input( "input a number for x1: " ) )
@@ -42,7 +42,7 @@ def actual_area(x):
 
 
 # output: 1) estimated area
-print( "The extimated area using Riemann sum is:", estimated_area( x ) )
+print( "\nThe extimated area using Riemann sum is:", estimated_area( x ) )
 
 # 2) actual area ( 1/3 * x ^ 3 )
-print( "The actual area is:", actual_area( x ) )
+print( "The actual area is:", actual_area( x ), "\n" )
