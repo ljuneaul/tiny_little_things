@@ -55,33 +55,57 @@ def style_1(line, index):
     checking_index = 0
     inserting_index = 0
     global global_error_count
+
+    # quote open/close handling
+    current_quote = ""
+    is_quote_opened = False
+
     # FOR each character in the string,
     for i in range(len(line)):
-        # IF the character is "(", THEN
-        if line[i] == "(":
-            # SET checker = index + 1
-            checking_index = i + 1
-            inserting_index = checking_index
-        # ELSEIF the character is ")", THEN
-        elif line[i] == ")":
-            # SET checker = index - 1
-            checking_index = i - 1
-            inserting_index = i
-        # ELSE, THEN
-        else:
-            # CONTINUE to the next iteration
+        # quote open/close handling
+        if line[i] in ('"', "'"):
+            if not is_quote_opened:
+                current_quote = line[i]
+                is_quote_opened = True
+            elif line[i] == current_quote:
+                is_quote_opened = False
             continue
-        # GET a character at index checker
-        # IF the second character is " ", THEN
-        if line[checking_index] == " ":
-            # CONTINUE to the next iteration
-            continue
-        # ELSE, THEN
-        else:
-            # SET error position to append the index of the missing spaces
-            error_index_list.append(inserting_index)
-            # INCREMENT error count
-            error_count += 1
+
+        if not is_quote_opened:
+            # IF the character is "#", THEN
+            if line[i] == "#":
+                # END for loop (because the rest is comments)
+                break
+            # ELSEIF the character is "(", THEN
+            elif line[i] == "(":
+                # SET checker = index + 1
+                checking_index = i + 1
+                inserting_index = checking_index
+                correct = (" ", ")")
+            # ELSEIF the character is ")", THEN
+            elif line[i] == ")":
+                # SET checker = index - 1
+                checking_index = i - 1
+                inserting_index = i
+                correct = (" ", "(")
+            # ELSE, THEN
+            else:
+                # CONTINUE to the next iteration
+                continue
+            # GET a character at index checker
+            # IF the second character is " ", THEN
+            try:
+                if line[checking_index] in correct:
+                    # CONTINUE to the next iteration
+                    continue
+                # ELSE, THEN
+                else:
+                    # SET error position to append the index of the missing spaces
+                    error_index_list.append(inserting_index)
+                    # INCREMENT error count
+                    error_count += 1
+            except IndexError:
+                pass
     # SET the string as █(ascii 9608) inserted where the space(s) should be
     #     do this in a descending order so the rests won't be effected
     error_index_list.reverse()
@@ -123,7 +147,7 @@ def parenthesis_closer(line, index):
 operator = []
 operator.append(("+", " + ", " += "))
 operator.append(("-", " - ", (" -= ", " -> ")))
-operator.append(("*", " * ", (" *= ", " ** ")))
+operator.append(("*", (" * ", '"*"'), (" *= ", " ** ")))
 operator.append(("/", (" / ", "m/h"), (" /= ", " // ")))
 operator.append(("%", " % ", " %= "))
 operator.append(("=", (" = ", "+= ", "-= ", "*= ", "/= ", "%= ", ">= ", "<= "), (" == ")))
@@ -140,15 +164,23 @@ def style_2(line, index):
         if operator[i][0] in line:
             # GET its position
             position = line.find(operator[i][0])
-            # IF any space is missing around the operator(consider 2-bit), THEN
-            if line[position - 1:position + 2] not in operator[i][1]\
-               and line[position - 1:position + 3] not in operator[i][2]:
-                # DISPLAY its index
-                message = "missing space(s) around (an) operator(s)"
-                print("line", index + 1, ":", line, "\t#", message)
-                global_error_count += 1
-                # to prevent multiple print in 2-digit, terminate the iteration
-                return
+            should_check = True
+            for quote in ("'", '"'):
+                num_quote_before = line[:position - 1].count(quote)
+                num_quote_after = line[position + 1:].count(quote)
+                if num_quote_after != 0 and num_quote_after % 2 != 0\
+                   and num_quote_after == num_quote_before:
+                    should_check = False
+            if should_check:
+                # IF any space is missing around the operator(consider 2-bit), THEN
+                if line[position - 1:position + 2] not in operator[i][1]\
+                   and line[position - 1:position + 3] not in operator[i][2]:
+                    # DISPLAY its index
+                    message = "missing space(s) around (an) operator(s)"
+                    print("line", index + 1, ":", line, "\t#", message)
+                    global_error_count += 1
+                    # to prevent multiple print in 2-digit, terminate the iteration
+                    return
 
 
 # DISPLAY header
