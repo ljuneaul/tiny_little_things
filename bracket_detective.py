@@ -13,6 +13,10 @@
 #         if there is no error, end the program and inform about other rules
 
 
+# next patch: negation ('-' + num)
+#             bulk quote through multiple lines
+
+
 import sys
 
 
@@ -170,6 +174,8 @@ def style_2(line, index):
                 num_quote_after = line[position + 1:].count(quote)
                 if num_quote_after != 0 and num_quote_after % 2 != 0\
                    and num_quote_after == num_quote_before:
+                    should_check = False
+                elif "#" in line[:position - 1]:
                     should_check = False
             if should_check:
                 # IF any space is missing around the operator(consider 2-bit), THEN
