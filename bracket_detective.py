@@ -46,7 +46,10 @@ def open_file(filename):
         filename = ask_filename()
         content_list = open_file(filename)
     finally:
-        return content_list
+        try:
+            return content_list
+        except UnboundLocalError:
+            sys.exit()
 
 
 # Function 1 - Style Rule 1
@@ -213,14 +216,16 @@ if global_error_count == 0:
     each_end_message = "No error found!"
 else:
     each_end_message = "\nInvestigation ended. Please fix "\
-                       + str(global_error_count) + " error(s) by yourself."
+                       + str(global_error_count) + " error(s) by yourself."\
+                       + "\nPlease note that there could be a false alarm for "\
+                       + "a linebreak in parentheses and negation."
 common_end_message = "Please note that this detector only indicates simple \
 errors with parenthesis and spaces!"
 print(each_end_message)
 print(common_end_message, "\n")
 
 
-# Dear Stephen,
+# Dear Professor Adams,
 
 # If you are reading this by any chance, please be merciful and kindly forgive
 # me that this program itself is totally against the style rule 1.
