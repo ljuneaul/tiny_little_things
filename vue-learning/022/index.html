@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- content -->
+		<input type="text" v-model="name">
+		<p>{{ name }}</p>
+		<hr>
+		<button v-on:click="counter++">Increase</button>
+		<button v-on:click="counter--">Decrease</button>
+		<button v-on:click="secondCounter++">Increase second</button>
+		<p>Counter: {{ counter }} | {{ secondCounter }}</p>
+		<p>Result: {{ result() }} | {{ output }}</p>
+	</div>
+	<script>
+		new Vue({
+	el: '#app',
+	data: {
+		// data
+		name: 'Juneau',
+		counter: 0,
+		secondCounter: 0
+	},
+	computed: {
+		output: function() {
+			console.log('computed')
+			return this.counter > 5 ? 'Greater 5' : 'smaller than 5';
+		}
+	},
+	watch: {
+		counter: function(value) {
+			var vm = this;
+			setTimeout(function() {
+				vm.counter = 0
+			}, 2000);
+		}
+	},
+	methods: {
+		// methods
+		result: function() {
+			console.log('result')
+			return this.counter > 5 ? 'Greater 5' : 'smaller than 5';
+		}
+	}
+});
+	</script>
+</body>
+</html>
