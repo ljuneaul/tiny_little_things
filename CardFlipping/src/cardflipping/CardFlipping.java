@@ -145,8 +145,8 @@ public class CardFlipping extends Application {
         /** index of second clicked card **/
         private int secondCardIndex;
         /** number(kind) of current card button **/
-        private int cardNum;
-        /** number(kind) of first clicked card **/
+        private int cardNum; 
+       /** number(kind) of first clicked card **/
         private int firstCardNum;
         /** number(kind) of second clicked card **/
         private int secondCardNum;
@@ -249,7 +249,12 @@ public class CardFlipping extends Application {
      * @param e
      */
     private void handlerBtnCardNumSubmit(ActionEvent e) {
-        numOfCards = Integer.parseInt(txtCardNumInput.getText());
+        try {
+            numOfCards = Integer.parseInt(txtCardNumInput.getText());
+        } catch (NumberFormatException ee) {
+            lblMessage.setText("Enter a even number between 4-16!");
+        }
+        
         if (numOfCards == 4 || numOfCards == 6 || numOfCards == 8
                 || numOfCards == 12 || numOfCards == 16) {
 
