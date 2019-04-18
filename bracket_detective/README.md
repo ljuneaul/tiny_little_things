@@ -1,4 +1,4 @@
-# Tim Kiosk
+# Bracket Detective
 > Indicates simple errors with parenthesis and spaces.
   - Python3
 
