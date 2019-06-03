@@ -3,4 +3,4 @@
   - Java8
   - Javafx
 
-[![screenshot](https://i.imgur.com/ko8RZuS.png)](#) 
+[![screenshot](https://raw.githubusercontent.com/ljuneaul/tiny_little_things/master/CardFlipping/screenshot.png)](#) 
